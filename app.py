@@ -17,12 +17,18 @@ print(f'Duración: {yt.length} segundos')
 audio_stream = yt.streams.filter(file_extension='mp4').first()
 
 # Descarga el audio en formato MP4
-download_path = 'C:/Users/Ismael/Desktop/FastMp3/pruebaV'
+download_path = filedialog.askdirectory(title="Seleccionar carpeta de destino")
 audio_path = os.path.join(download_path, f'{yt.title}.mp4')
 audio_stream.download(download_path)
 
 # Ruta relativa al archivo .mp4
-relative_path = 'C:/Users/Ismael/Desktop/FastMp3/pruebaV/One Piece - Opening 21  Super Powers.mp4'
+relative_path = selected_file = filedialog.askopenfilename(title="Seleccionar archivo")
+
+# Verificar si el usuario ha seleccionado un archivo
+if selected_file:
+    print(f'Archivo seleccionado: {selected_file}')
+else:
+    print('No se seleccionó ningún archivo.')
 
 # Obtener la ruta absoluta
 name = os.path.abspath(relative_path)
@@ -49,4 +55,5 @@ mp3_filename = os.path.join(selected_folder, os.path.splitext(os.path.basename(n
 
 # Lo escribimos como audio y `.mp3`
 clip.audio.write_audiofile(mp3_filename)
+
 
